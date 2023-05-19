@@ -17,15 +17,20 @@ function createCalendar(year, month) {
     let td = document.createElement("td")
     tableDates.appendChild(td)
   }
-  for (let i = 1; i <= numberOfDays; i++) {
-    let td = document.createElement("td")
-    td.textContent = i
-    tableDates.appendChild(td)
-    if ((i + firstDay) % 7 == 0) {
-      let tr = document.createElement("tr")
-      tableDates.appendChild(tr)
+ for (let i = 1; i <= noOfDays; i++) {
+          let td =document.createElement("td");
+          td.textContent=i;
+          tr.appendChild(td);
+          if ((i+firstDay)%7===0) {
+            tableDates.appendChild(tr);
+            tr=document.createElement("tr");
+          }
+        }
+
+        if(tr.children.length>0){
+          tr.parentNode.appendChild(tr);
+        }
     }
-  }
 }
 let currentYear = new Date().getFullYear()
 let currentMonth = new Date().getMonth() + 1
