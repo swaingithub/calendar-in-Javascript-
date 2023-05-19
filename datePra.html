@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calendar</title>
+</head>
+<body>
+   <div class="container">
+    <h2 id="info"></h2>
+      <div id="calendar">
+        <table>
+          <thead id="days"></thead>
+          <tbody id="dates"></tbody>
+        </table>
+      </div>
+   </div>
+   <script>
+    function createCalendar(year,month){
+       const date=new Date(year,month);
+       const days=["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+       const monthsName=[
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+       const year_and_month=`${monthsName[date.getMonth()]} ${year}\n`;
+       document.getElementById("info").textContent=year_and_month;
+       let tableDays=document.getElementById("days");
+        for (let i = 0; i < days.length; i++) {
+          let td =document.createElement("td");
+          td.textContent=days[i];
+          tableDays.appendChild(td);        
+        }
+
+        let firstDay=new Date(year,month,1).getDay();
+        let noOfDays=new Date(year,month+1,0).getDate();
+
+        let tableDates=document.getElementById("dates")
+        let tr=document.createElement("tr");
+
+        for (let i = 0; i < firstDay; i++) {
+          let td=document.createElement("td");
+          tr.appendChild(td);
+        }
+
+        for (let i = 1; i <= noOfDays; i++) {
+          let td =document.createElement("td");
+          td.textContent=i;
+          tr.appendChild(td);
+          if ((i+firstDay)%7===0) {
+            tableDates.appendChild(tr);
+            tr=document.createElement("tr");
+          }
+        }
+
+        if(tr.children.length>0){
+          tr.parentNode.appendChild(tr);
+        }
+    }
+    const currentYear=new Date().getFullYear();
+    const currentMonth= new Date().getMonth();
+    createCalendar(currentYear,currentMonth)
+   </script>
+</body>
+</html>
